@@ -12,7 +12,8 @@ dependencies = [
     "opencv-python (>=5.0.0.93,<6.0.0.0)",
     "numpy (>=2.5.3,<3.0.0)",
     "matplotlib (>=3.11.2,<4.0.0)",
-    "python-multipart (>=0.0.32,<0.0.33)"
+    "python-multipart (>=0.0.32,<0.0.33)",
+    "kedro (>=1.6.0,<2.0.0)"
 ]
 
 
