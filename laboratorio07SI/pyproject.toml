@@ -1,0 +1,21 @@
+
+[tool.poetry]
+name = "laboratorio07si"
+version = "0.1.0"
+description = "Laboratorio 7 - Algoritmos Alpha-Beta"
+authors = ["Eric Ricaldi"]
+package-mode = true
+packages = [{ include = "alpha_beta_lab", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.14,<4.0"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.1.1"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
