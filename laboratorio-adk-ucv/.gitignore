@@ -1,0 +1,29 @@
+# Claves y variables de entorno
+.env
+.env.*
+!.env.example
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Archivos temporales de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Pruebas
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Configuración local
+.vscode/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Sesiones locales de ADK
+**/.adk/
+**/session.db
