@@ -1,0 +1,45 @@
+
+name: CI - Travel ADK Multiagent
+
+on:
+  push:
+    branches:
+      - LaboratoriosSI
+      - main
+      - master
+      - 'feature/**'
+
+  pull_request:
+    branches:
+      - LaboratoriosSI
+      - main
+      - master
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: travel-adk-multiagent
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Run tests
+        run: poetry run pytest -v
+
+      - name: Run Ruff
+        run: poetry run ruff check .
