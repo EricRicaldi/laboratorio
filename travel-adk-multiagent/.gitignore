@@ -1,0 +1,32 @@
+
+# Entornos virtuales
+.venv/
+venv/
+
+# Variables de entorno y credenciales
+.env
+.env.*
+
+# Permitir la plantilla de configuración
+!.env.example
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Pruebas y cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Ruff
+.ruff_cache/
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos locales de Google ADK
+**/.adk/
+**/session.db
