@@ -17,6 +17,7 @@ on:
 
 jobs:
   validate:
+    name: Tests, Ruff and SonarCloud
     runs-on: ubuntu-latest
 
     defaults:
@@ -26,6 +27,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -38,8 +41,15 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-interaction
 
-      - name: Run tests
-        run: poetry run pytest -v
+      - name: Run tests with coverage
+        run: poetry run pytest --cov=travel_assistant --cov-report=xml:coverage.xml -v
 
       - name: Run Ruff
         run: poetry run ruff check .
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v8
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: travel-adk-multiagent
