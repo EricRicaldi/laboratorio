@@ -1,0 +1,30 @@
+
+name: CI - Perceptron Simple
+
+on:
+  push:
+    branches:
+      - LaboratoriosSI
+  pull_request:
+    branches:
+      - LaboratoriosSI
+
+jobs:
+  test:
+    name: Ejecutar pruebas automatizadas
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar pytest
+        run: python -m pip install pytest
+
+      - name: Ejecutar pruebas del perceptrón
+        run: python -m pytest laboratorio-perceptron/tests -v
