@@ -1,55 +1,48 @@
 
-name: CI - Travel ADK Multiagent
+name: CI - Perceptron Simple
 
 on:
   push:
     branches:
       - LaboratoriosSI
-      - main
-      - master
-      - 'feature/**'
-
   pull_request:
     branches:
       - LaboratoriosSI
-      - main
-      - master
 
 jobs:
-  validate:
-    name: Tests, Ruff and SonarCloud
+  test:
+    name: Ejecutar pruebas y análisis de calidad
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: travel-adk-multiagent
-
     steps:
-      - name: Checkout repository
+      # Descargar el código del repositorio.
+      - name: Descargar el código del repositorio
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up Python
+      # Configurar Python.
+      - name: Configurar Python 3.12
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
-      - name: Install Poetry
-        run: pip install poetry
+      # Instalar dependencias con versiones específicas y paquetes binarios.
+      - name: Instalar pytest y cobertura
+        run: python -m pip install --only-binary=:all: pytest==8.4.2 pytest-cov==6.2.1
 
-      - name: Install dependencies
-        run: poetry install --no-interaction
+      # Ejecutar las pruebas y generar el reporte de cobertura.
+      - name: Ejecutar pruebas del perceptrón
+        run: >
+          python -m pytest
+          --cov=laboratorio-perceptron/src
+          --cov=laboratorio-perceptron/main
+          --cov-report=xml:laboratorio-perceptron/coverage.xml
+          laboratorio-perceptron/tests -v
 
-      - name: Run tests with coverage
-        run: poetry run pytest --cov=travel_assistant --cov-report=xml:coverage.xml -v
-
-      - name: Run Ruff
-        run: poetry run ruff check .
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@v8
+      # Analizar el proyecto en SonarCloud.
+      - name: Analizar código con SonarCloud
+        uses: SonarSource/sonarqube-scan-action@v5
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_PERCEPTRON }}
+          SONAR_HOST_URL: https://sonarcloud.io
         with:
-          projectBaseDir: travel-adk-multiagent
+          projectBaseDir: laboratorio-perceptron
