@@ -14,3 +14,7 @@ __pycache__/
 
 # Variables de entorno
 .env
+
+# Archivos generados por pruebas y cobertura
+**/.coverage
+**/coverage.xml
