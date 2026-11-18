@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    name: Ejecutar pruebas automatizadas
+    name: Ejecutar pruebas y análisis de calidad
     runs-on: ubuntu-latest
 
     steps:
@@ -29,3 +29,11 @@ jobs:
       - name: Ejecutar pruebas del perceptrón
         working-directory: laboratorio-perceptron
         run: python -m pytest tests -v
+
+      - name: Analizar código con SonarQube Cloud
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          projectBaseDir: laboratorio-perceptron
