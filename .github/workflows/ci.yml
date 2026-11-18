@@ -25,12 +25,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Instalar dependencias con versiones específicas y paquetes binarios.
+      # Instalar dependencias con versiones específicas.
       - name: Instalar pytest y cobertura
         run: python -m pip install --only-binary=:all: pytest==8.4.2 pytest-cov==6.2.1
 
       # Ejecutar las pruebas y generar el reporte de cobertura.
-      - name: Ejecutar pruebas del perceptrón
+      - name: Ejecutar las pruebas del perceptrón
         run: >
           python -m pytest
           --cov=laboratorio-perceptron/src
