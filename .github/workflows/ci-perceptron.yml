@@ -27,4 +27,5 @@ jobs:
         run: python -m pip install pytest
 
       - name: Ejecutar pruebas del perceptrón
-        run: python -m pytest laboratorio-perceptron/tests -v
+        working-directory: laboratorio-perceptron
+        run: python -m pytest tests -v
