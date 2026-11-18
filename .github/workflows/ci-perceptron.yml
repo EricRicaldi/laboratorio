@@ -15,22 +15,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Descargar el código del repositorio.
       - name: Descargar el código del repositorio
         uses: actions/checkout@v4
 
+      # Configurar Python.
       - name: Configurar Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Instalar pytest
+      # Instalar las herramientas necesarias.
+      - name: Instalar pytest y cobertura
         run: python -m pip install pytest pytest-cov
 
+      # Ejecutar las pruebas y generar el reporte XML.
       - name: Ejecutar pruebas del perceptrón
         working-directory: laboratorio-perceptron
-        run: python -m pytest --cov=src --cov-report=xml:coverage.xml tests -v
+        run: python -m pytest --cov=src --cov=main --cov-report=xml:coverage.xml tests -v
 
-      - name: Analizar código con SonarQube Cloud
+      # Analizar el proyecto en SonarCloud.
+      - name: Analizar código con SonarCloud
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_PERCEPTRON }}
